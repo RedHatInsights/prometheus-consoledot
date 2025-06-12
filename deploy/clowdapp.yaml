@@ -62,6 +62,7 @@ objects:
               httpGet:
                 path: /-/healthy
                 port: 8000
+                scheme: HTTP
               initialDelaySeconds: 120
               periodSeconds: 10
               timeoutSeconds: 5
@@ -71,6 +72,7 @@ objects:
               httpGet:
                 path: /-/ready
                 port: 8000
+                scheme: HTTP
               initialDelaySeconds: 15
               periodSeconds: 10
               timeoutSeconds: 5
