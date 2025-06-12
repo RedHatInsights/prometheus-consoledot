@@ -1,0 +1,85 @@
+---
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: prometheus
+parameters:
+  - name: ENV_NAME
+    value: env-prometheus
+  - name: IMAGE
+    value: quay.io/cloudservices/prometheus
+  - name: IMAGE_TAG
+    value: latest
+  - name: IMAGE_PULL_SECRET
+    value: quay-cloudservices-pull
+  - name: MEMORY_REQUEST
+    value: 512Mi
+  - name: MEMORY_LIMIT
+    value: 1Gi
+  - name: CPU_REQUEST
+    value: 150m
+  - name: CPU_LIMIT
+    value: 300m
+objects:
+  - apiVersion: cloud.redhat.com/v1alpha1
+    kind: ClowdApp
+    metadata:
+      name: prometheus
+      labels:
+        app: prometheus
+    spec:
+      envName: ${ENV_NAME}
+
+      pullSecrets:
+        name: ${IMAGE_PULL_SECRET}
+
+      deployments:
+        - name: service
+          replicas: 1
+          webServices:
+            public:
+              enabled: true
+            private:
+              enabled: false
+            metrics:
+              enabled: false
+          podSpec:
+            image: ${IMAGE}:${IMAGE_TAG}
+            resources:
+              requests:
+                cpu: ${CPU_REQUEST}
+                memory: ${MEMORY_REQUEST}
+              limits:
+                cpu: ${CPU_LIMIT}
+                memory: ${MEMORY_LIMIT}
+            env:
+              - name: KEYSTORE_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: tls
+                    key: keystore_password
+            livenessProbe:
+              httpGet:
+                path: /-/healthy
+                port: 8000
+              initialDelaySeconds: 120
+              periodSeconds: 10
+              timeoutSeconds: 5
+              successThreshold: 1
+              failureThreshold: 3
+            readinessProbe:
+              httpGet:
+                path: /-/ready
+                port: 8000
+              initialDelaySeconds: 15
+              periodSeconds: 10
+              timeoutSeconds: 5
+              successThreshold: 1
+              failureThreshold: 3
+            volumeMounts:
+            - name: pinhead
+              mountPath: /pinhead
+            volumes:
+            - name: pinhead
+              secret:
+                secretName: pinhead
