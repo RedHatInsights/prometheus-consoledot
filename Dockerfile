@@ -12,6 +12,7 @@ RUN mkdir -p /opt/prometheus \
 # Runtime
 FROM registry.access.redhat.com/ubi9/openjdk-17
 COPY --from=build /opt/prometheus /opt/prometheus
+COPY config/prometheus.yml /opt/prometheus/prometheus.yml
 LABEL maintainer="Red Hat, Inc."
 LABEL version="ubi9"
 USER 0
