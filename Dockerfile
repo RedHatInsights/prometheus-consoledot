@@ -19,8 +19,13 @@ USER 0
 
 WORKDIR /opt/prometheus
 
+# Create the data directory for Prometheus query logs
+RUN mkdir -p /var/lib/prometheus && \
+    mkdir -p /opt/prometheus/data
+
 EXPOSE 8000
 
 ENTRYPOINT ["/opt/prometheus/prometheus", \
+            "--storage.tsdb.path=/var/lib/prometheus", \
             "--config.file=/opt/prometheus/prometheus.yml", \
             "--web.listen-address=:8000"]
