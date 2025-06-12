@@ -81,7 +81,11 @@ objects:
             volumeMounts:
             - name: pinhead
               mountPath: /pinhead
+            - name: prometheus
+              mountPath: /var/lib/prometheus
             volumes:
+            - name: prometheus
+              emptyDir:
             - name: pinhead
               secret:
                 secretName: pinhead
