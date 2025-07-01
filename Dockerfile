@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/ubi:9.6-1749542372 AS build
+FROM registry.access.redhat.com/ubi9/ubi:9.6-1751287003 AS build
 USER 0
 ARG PROMETHEUS_VERSION=2.49.1
 ARG TARGET_ARCH="amd64"
