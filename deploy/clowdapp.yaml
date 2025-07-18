@@ -38,11 +38,13 @@ objects:
           replicas: 1
           webServices:
             public:
+              # port 8000
               enabled: true
             private:
               enabled: false
             metrics:
-              enabled: false
+              # port 9000
+              enabled: true
           podSpec:
             image: ${IMAGE}:${IMAGE_TAG}
             resources:
