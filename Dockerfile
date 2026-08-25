@@ -10,7 +10,7 @@ RUN mkdir -p /opt/prometheus \
   && mv /opt/prometheus/prometheus-${PROMETHEUS_VERSION}.linux-${TARGET_ARCH}/* /opt/prometheus/
 
 # Runtime
-FROM registry.access.redhat.com/ubi9/openjdk-17-runtime:1.24-3.1786536507
+FROM registry.access.redhat.com/ubi9/openjdk-17-runtime:1.24-3.1787219885
 COPY --from=build /opt/prometheus /opt/prometheus
 COPY config/prometheus.yml /opt/prometheus/prometheus.yml
 COPY utils/* /opt/prometheus/utils/
