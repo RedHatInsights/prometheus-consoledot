@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "ignoreDeps": [
+    "prometheus"
+  ],
+  "packageRules": [
+    {
+      "description": "Do not open MintMaker PRs for Go modules (prometheus submodule pins its own go.mod).",
+      "matchManagers": ["gomod", "ocb"],
+      "enabled": false
+    }
+  ]
+}
