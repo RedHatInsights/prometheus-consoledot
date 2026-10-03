@@ -25,7 +25,7 @@ RUN mkdir -p /opt/prometheus \
 # Hermeto gomod SBOM from prefetch. go-toolset already provides objcopy.
 
 # Runtime: Python base for the IQE importer (Flask) without microdnf network installs.
-FROM registry.access.redhat.com/ubi9/python-312:1-1790570578
+FROM registry.access.redhat.com/ubi9/python-312:9.8-1790570578
 USER 0
 COPY --from=build /opt/prometheus /opt/prometheus
 COPY config/prometheus.yml /opt/prometheus/prometheus.yml
