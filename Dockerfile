@@ -1,6 +1,6 @@
 # Build Prometheus + promtool from the prometheus/ git submodule (no upstream release tarball).
 # Hermetic Konflux: Hermeto prefetches Go modules to /cachi2.
-FROM registry.access.redhat.com/ubi9/go-toolset:9.8-1790174511 AS build
+FROM registry.access.redhat.com/ubi9/go-toolset:9.8-1791182877 AS build
 USER 0
 WORKDIR /opt/app-root/src/prometheus
 COPY prometheus/ .
